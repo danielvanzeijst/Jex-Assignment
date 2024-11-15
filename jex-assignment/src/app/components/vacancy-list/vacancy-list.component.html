@@ -1,0 +1,46 @@
+<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    @if (isLoading) {
+    <app-loading-spinner message="Loading vacancies..." />
+    } @else {
+    @if (company) {
+    <div class="py-8">
+        <h1 class="text-4xl sm:text-5xl font-bold font-oswald text-jex-primary mb-6">
+            Open positions at {{company.name}}
+        </h1>
+        <div class="flex items-center space-x-2 text-gray-600">
+            <button (click)="showModal = true"
+                class="inline-flex items-center justify-center px-4 py-2 bg-jex-primary hover:bg-jex-secondary text-white font-medium rounded-md shadow-lg transition-all duration-200 ease-in-out hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-jex-primary space-x-2 group"
+                aria-label="Add new position">
+                <svg class="w-5 h-5 group-hover:text-jex-primary transition-colors duration-200" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span class="group-hover:text-jex-primary transition-colors duration-200">Add new position</span>
+            </button>
+        </div>
+    </div>
+    }
+
+    <div class="w-full max-w-lg" role="region" aria-label="List of job vacancies">
+        @if (vacancies) {
+        @if (vacancies.length === 0) {
+        <p class="text-gray-600 text-center py-8">No positions available at the moment.</p>
+        }
+        @for (vacancy of vacancies; track vacancy) {
+        <article class="bg-white rounded-lg shadow-md p-6 mb-4 hover:shadow-lg transition-shadow duration-200"
+            role="article">
+            <h3 class="text-xl font-oswald font-semibold text-jex-primary">{{ vacancy.title }}</h3>
+            <p class="text-gray-600 mt-2">
+                <span class="sr-only">Salary range:</span>
+                €{{ vacancy.salaryMin }} - €{{ vacancy.salaryMax }}
+            </p>
+        </article>
+        }
+        }
+    </div>
+
+    @if (showModal) {
+    <app-create-vacancy-modal (close)="showModal = false" (save)="handleCreateVacancy($event)" />
+    }
+    }
+</div>

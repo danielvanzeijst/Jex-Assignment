@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
       role="status"
       [attr.aria-label]="message"
     >
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-jex-primary"></div>
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       <p class="text-gray-600 text-sm">{{ message }}</p>
     </div>
   `
